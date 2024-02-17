@@ -29,7 +29,7 @@ public class Receipt {
     @JoinColumn(name = "user_id")
     @JsonIgnore
     private User user;
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "seat_number")
     @JsonIgnore
     private Seat seat;
@@ -37,11 +37,12 @@ public class Receipt {
     @Column(name = "status")
     private TicketStatus status;
 
-    public Receipt(Seat seat, User user, BookingRequestDto bookingRequestDto) {
+    public Receipt(Seat seat, User user, BookingRequestDto bookingRequestDto, TicketStatus status) {
         this.fromStation = bookingRequestDto.getFrom();
         this.toStation= bookingRequestDto.getTo();
         this.amountPaid = bookingRequestDto.getPricePaid();
         this.user = user;
         this.seat = seat;
+        this.status = status;
     }
 }

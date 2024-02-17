@@ -44,7 +44,7 @@ public class TrainService {
         seat.setBooked(true); seat.setUser(user);
         seat = seatRepository.save(seat);
 
-        Receipt receipt = new Receipt(seat, user, bookingRequestDto);
+        Receipt receipt = new Receipt(seat, user, bookingRequestDto, TicketStatus.BOOKED);
         receipt = receiptRepository.save(receipt);
 
         return new BookingResponseDto(receipt);
@@ -55,7 +55,7 @@ public class TrainService {
         User user = userRepository.findById(userId).orElse(null);
         if(Objects.isNull(user)) throw new CustomException(ErrorCode.USER_NOT_FOUND);
 
-        List<Receipt> receipts = receiptRepository.findAllByUser(user);
+        List<Receipt> receipts = receiptRepository.findAllByUserAndTicketStatus(user, TicketStatus.BOOKED);
         return receipts.stream().map(BookingResponseDto::new).toList();
     }
 

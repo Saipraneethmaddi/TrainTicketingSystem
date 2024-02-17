@@ -11,7 +11,7 @@ public interface SeatRepository extends CrudRepository<Seat, Integer> {
     @Query("SELECT s FROM Seat s WHERE s.booked=false ORDER BY s.number LIMIT 1")
     Seat findAvailableSeat();
 
-    @Query("SELECT COUNT(s) FROM SEAT s WHERE s.booked=false")
+    @Query("SELECT COUNT(s) FROM Seat s WHERE s.booked=false")
     Long countAvailableSeats();
 
     @Query("SELECT s FROM Seat s WHERE s.booked=true AND s.section=?1")

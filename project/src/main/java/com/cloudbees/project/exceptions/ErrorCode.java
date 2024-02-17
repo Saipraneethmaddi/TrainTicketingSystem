@@ -20,7 +20,7 @@ public enum ErrorCode {
 
 
     private final String message;
-    private final HttpStatus httpStatusCode;
+    private final HttpStatusCode httpStatusCode;
 
     ErrorCode(String message, HttpStatus httpStatusCode) {
         this.message = message;

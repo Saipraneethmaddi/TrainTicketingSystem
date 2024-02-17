@@ -21,8 +21,28 @@ public class TrainController {
     }
 
     @GetMapping("/train/tickets")
-    public ResponseEntity<?> getTicketDetails(@RequestParam(name = "user_id") Long userId) throws CustomException{
+    public ResponseEntity<?> getTicketDetails(@RequestParam(name = "user_id") String userId) throws CustomException{
         return new ResponseEntity<>(trainService.getTicketDetailsForUser(userId), HttpStatus.OK);
     }
 
+    @GetMapping("/train/tickets/{receiptId}")
+    public ResponseEntity<?> getTicketDetailsForReceipt(@PathVariable String receiptId) throws CustomException {
+        return new ResponseEntity<>(trainService.getTicketDetailsFromReceipt(receiptId), HttpStatus.OK);
+    }
+
+    @GetMapping("train/seats")
+    public ResponseEntity<?> getBookedSeatsFromSection(@RequestParam(name = "section") String section) throws CustomException{
+        return new ResponseEntity<>(trainService.getBookedSeatsFromSection(section), HttpStatus.OK);
+    }
+
+    @DeleteMapping("train/tickets/{receiptId}")
+    public ResponseEntity<?> cancelTicket(@PathVariable String receiptId) throws CustomException {
+        return new ResponseEntity<>(trainService.cancelTicket(receiptId), HttpStatus.OK);
+    }
+
+    @PutMapping("train/tickets/{receiptId}")
+    public ResponseEntity<?> modifySeat(@RequestParam(name = "seat_number", required = false) String seatNumber,
+                                        @PathVariable String receiptId) throws CustomException {
+        return new ResponseEntity<>(trainService.modifySeat(receiptId, seatNumber), HttpStatus.OK);
+    }
 }

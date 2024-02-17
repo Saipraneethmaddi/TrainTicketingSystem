@@ -1,5 +1,6 @@
 package com.cloudbees.project.models;
 
+import com.cloudbees.project.constants.TicketStatus;
 import com.cloudbees.project.dto.BookingRequestDto;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -32,6 +33,9 @@ public class Receipt {
     @JoinColumn(name = "seat_number")
     @JsonIgnore
     private Seat seat;
+
+    @Column(name = "status")
+    private TicketStatus status;
 
     public Receipt(Seat seat, User user, BookingRequestDto bookingRequestDto) {
         this.fromStation = bookingRequestDto.getFrom();

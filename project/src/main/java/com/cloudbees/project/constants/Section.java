@@ -28,7 +28,7 @@ public enum Section {
         sectionMap.put("A", A); sectionMap.put("B", B);
     }
 
-    public Section getSectionFromString(String section) {
+    public static Section getSectionFromString(String section) {
         return sectionMap.getOrDefault(section, null);
     }
 }

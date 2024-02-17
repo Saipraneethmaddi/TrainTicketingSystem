@@ -27,17 +27,17 @@ public class UserController {
     }
 
     @GetMapping("/users/{id}")
-    public ResponseEntity<?> getUser(@PathVariable Long id) throws CustomException{
+    public ResponseEntity<?> getUser(@PathVariable String id) throws CustomException{
         return new ResponseEntity<>(userService.getUser(id), HttpStatus.OK);
     }
 
     @PutMapping("/users/{id}")
-    public ResponseEntity<?> editUser(@RequestBody User user, @PathVariable Long id) throws CustomException {
+    public ResponseEntity<?> editUser(@RequestBody User user, @PathVariable String id) throws CustomException {
         return new ResponseEntity<>(userService.editUser(user, id), HttpStatus.OK);
     }
 
     @DeleteMapping("/users/{id}")
-    public ResponseEntity<?> deleteUser(@PathVariable Long id) throws CustomException {
+    public ResponseEntity<?> deleteUser(@PathVariable String id) throws CustomException {
         return new ResponseEntity<>(userService.deleteUser(id), HttpStatus.OK);
     }
 }

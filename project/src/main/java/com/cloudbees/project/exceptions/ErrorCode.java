@@ -11,7 +11,12 @@ public enum ErrorCode {
     EMAIL_NOT_PROVIDED("Email cannot be null", HttpStatus.BAD_REQUEST),
     EMAIL_MISMATCH("Email cannot be modified", HttpStatus.NOT_ACCEPTABLE),
     INVALID_REQUEST_BODY("Invalid request body", HttpStatus.BAD_REQUEST),
-    NULL_USER_ID("User id cannot be null", HttpStatus.BAD_REQUEST);
+    SECTION_DOES_NOT_EXIST("Provided section does not exist", HttpStatus.NOT_FOUND),
+    INVALID_USER_ID("Invalid user id", HttpStatus.BAD_REQUEST),
+    INVALID_RECEIPT_ID("Invalid receipt id", HttpStatus.BAD_REQUEST),
+    RECEIPT_NOT_FOUND("Receipt not found", HttpStatus.NOT_FOUND),
+    INVALID_SEAT_NUMBER("Invalid seat number", HttpStatus.BAD_REQUEST),
+    SEAT_NOT_FOUND("Seat not found with given number", HttpStatus.NOT_FOUND);
 
 
     private final String message;

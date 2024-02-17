@@ -39,7 +39,7 @@ public class Receipt {
 
     public Receipt(Seat seat, User user, BookingRequestDto bookingRequestDto, TicketStatus status) {
         this.fromStation = bookingRequestDto.getFrom();
-        this.toStation= bookingRequestDto.getTo();
+        this.toStation = bookingRequestDto.getTo();
         this.amountPaid = bookingRequestDto.getPricePaid();
         this.user = user;
         this.seat = seat;

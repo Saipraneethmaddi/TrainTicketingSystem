@@ -31,7 +31,7 @@ public class UserController {
     }
 
     @GetMapping("/users/{id}")
-    public ResponseEntity<?> getUser(@PathVariable String id) throws CustomException{
+    public ResponseEntity<?> getUser(@PathVariable String id) throws CustomException {
         try {
             return new ResponseEntity<>(userService.getUser(id), HttpStatus.OK);
         } catch (CustomException e) {

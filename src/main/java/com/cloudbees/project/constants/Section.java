@@ -24,8 +24,10 @@ public enum Section {
     }
 
     private static final Map<String, Section> sectionMap = new HashMap<>(2);
+
     static {
-        sectionMap.put("A", A); sectionMap.put("B", B);
+        sectionMap.put("A", A);
+        sectionMap.put("B", B);
     }
 
     public static Section getSectionFromString(String section) {

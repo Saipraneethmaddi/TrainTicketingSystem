@@ -25,9 +25,12 @@ public class TrainInitializer {
 
         int totalCapacity = Section.A.getCapacity() + Section.B.getCapacity();
         Section section;
-        for(int i=1; i<=totalCapacity; i++) {
-            section = i>Section.A.getCapacity() ? Section.B : Section.A;
-            Seat seat = new Seat(); seat.setNumber(i); seat.setSection(section); seat.setBooked(false);
+        for (int i = 1; i <= totalCapacity; i++) {
+            section = i > Section.A.getCapacity() ? Section.B : Section.A;
+            Seat seat = new Seat();
+            seat.setNumber(i);
+            seat.setSection(section);
+            seat.setBooked(false);
             seats.add(seat);
         }
 

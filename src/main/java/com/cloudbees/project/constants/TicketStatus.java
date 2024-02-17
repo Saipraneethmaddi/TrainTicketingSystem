@@ -6,6 +6,7 @@ public enum TicketStatus {
     CANCELLED("Cancelled");
 
     private final String status;
+
     TicketStatus(String status) {
         this.status = status;
     }

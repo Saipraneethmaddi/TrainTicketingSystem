@@ -6,7 +6,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.springframework.util.StringUtils;
 
 @Data
 @AllArgsConstructor
@@ -20,12 +19,12 @@ public class BookingRequestDto {
     private Integer pricePaid;
 
     public void isValid() throws CustomException {
-        if(this.from==null || this.from.isBlank()
-           || this.to==null || this.to.isBlank()
-           || this.userId==null
-           || this.pricePaid==null) throw new CustomException(ErrorCode.INVALID_REQUEST_BODY);
+        if (this.from == null || this.from.isBlank()
+                || this.to == null || this.to.isBlank()
+                || this.userId == null
+                || this.pricePaid == null) throw new CustomException(ErrorCode.INVALID_REQUEST_BODY);
 
-        if(!this.from.equals("London") || !this.to.equals("France") || this.pricePaid!=20)
+        if (!this.from.equals("London") || !this.to.equals("France") || this.pricePaid != 20)
             throw new CustomException(ErrorCode.INVALID_REQUEST_BODY);
     }
 }

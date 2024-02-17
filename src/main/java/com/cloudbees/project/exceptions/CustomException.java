@@ -2,7 +2,7 @@ package com.cloudbees.project.exceptions;
 
 import lombok.Getter;
 
-public class CustomException extends Exception{
+public class CustomException extends Exception {
 
     @Getter
     private final ErrorCode errorCode;

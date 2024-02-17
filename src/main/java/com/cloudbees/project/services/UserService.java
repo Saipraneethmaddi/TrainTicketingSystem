@@ -20,7 +20,7 @@ public class UserService {
 
     public User createUser(User user) throws CustomException {
         validateUser(user);
-        if(userRepository.existsByEmail(user.getEmail())) throw new CustomException(ErrorCode.USER_ALREADY_EXISTS);
+        if (userRepository.existsByEmail(user.getEmail())) throw new CustomException(ErrorCode.USER_ALREADY_EXISTS);
 
         return userRepository.save(user);
     }
@@ -31,18 +31,18 @@ public class UserService {
 
     public User getUser(String idString) throws CustomException {
         long id = userIdFromString(idString);
-        if(!userRepository.existsById(id)) throw new CustomException(ErrorCode.USER_NOT_FOUND);
+        if (!userRepository.existsById(id)) throw new CustomException(ErrorCode.USER_NOT_FOUND);
 
         return userRepository.findById(id).orElse(null);
     }
 
     public User editUser(User user, String idString) throws CustomException {
         long id = userIdFromString(idString);
-        if(!Objects.equals(id, user.getId())) throw new CustomException(ErrorCode.USER_ID_MISMATCH);
+        if (!Objects.equals(id, user.getId())) throw new CustomException(ErrorCode.USER_ID_MISMATCH);
         validateUser(user);
         User prevUser = userRepository.findById(id).orElse(null);
-        if(Objects.isNull(prevUser)) throw new CustomException(ErrorCode.USER_NOT_FOUND);
-        if(!user.getEmail().equals(prevUser.getEmail())) throw new CustomException(ErrorCode.EMAIL_MISMATCH);
+        if (Objects.isNull(prevUser)) throw new CustomException(ErrorCode.USER_NOT_FOUND);
+        if (!user.getEmail().equals(prevUser.getEmail())) throw new CustomException(ErrorCode.EMAIL_MISMATCH);
 
         return userRepository.save(user);
     }
@@ -50,14 +50,14 @@ public class UserService {
     public User deleteUser(String idString) throws CustomException {
         long id = userIdFromString(idString);
         User user = userRepository.findById(id).orElse(null);
-        if(Objects.isNull(user)) throw new CustomException(ErrorCode.USER_NOT_FOUND);
+        if (Objects.isNull(user)) throw new CustomException(ErrorCode.USER_NOT_FOUND);
 
         userRepository.delete(user);
         return user;
     }
 
-    public long userIdFromString(String userIdString) throws CustomException{
-        if(Objects.isNull(userIdString)) throw new CustomException(ErrorCode.INVALID_USER_ID);
+    public long userIdFromString(String userIdString) throws CustomException {
+        if (Objects.isNull(userIdString)) throw new CustomException(ErrorCode.INVALID_USER_ID);
         try {
             return Long.parseLong(userIdString);
         } catch (NumberFormatException e) {
@@ -66,6 +66,6 @@ public class UserService {
     }
 
     private void validateUser(User user) throws CustomException {
-        if(Objects.isNull(user.getEmail())) throw new CustomException(ErrorCode.EMAIL_NOT_PROVIDED);
+        if (Objects.isNull(user.getEmail())) throw new CustomException(ErrorCode.EMAIL_NOT_PROVIDED);
     }
 }

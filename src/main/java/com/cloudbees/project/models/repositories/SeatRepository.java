@@ -12,7 +12,7 @@ public interface SeatRepository extends CrudRepository<Seat, Integer> {
     Seat findAvailableSeat();
 
     @Query("SELECT COUNT(s) FROM Seat s WHERE s.booked=false")
-    Long countAvailableSeats();
+    Integer countAvailableSeats();
 
     @Query("SELECT s FROM Seat s WHERE s.booked=true AND s.section=?1")
     List<Seat> getBookedSeatsFromSection(Section section);

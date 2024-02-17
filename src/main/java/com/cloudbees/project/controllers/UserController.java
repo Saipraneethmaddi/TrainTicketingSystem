@@ -17,8 +17,12 @@ public class UserController {
     }
 
     @PostMapping("/users")
-    public ResponseEntity<?> createUser(@RequestBody User user) throws CustomException {
-        return new ResponseEntity<>(userService.createUser(user), HttpStatus.OK);
+    public ResponseEntity<?> createUser(@RequestBody User user) {
+        try {
+            return new ResponseEntity<>(userService.createUser(user), HttpStatus.OK);
+        } catch (CustomException e) {
+            return new ResponseEntity<>(e.getMessage(), e.getErrorCode().getHttpStatusCode());
+        }
     }
 
     @GetMapping("/users")
@@ -28,16 +32,28 @@ public class UserController {
 
     @GetMapping("/users/{id}")
     public ResponseEntity<?> getUser(@PathVariable String id) throws CustomException{
-        return new ResponseEntity<>(userService.getUser(id), HttpStatus.OK);
+        try {
+            return new ResponseEntity<>(userService.getUser(id), HttpStatus.OK);
+        } catch (CustomException e) {
+            return new ResponseEntity<>(e.getMessage(), e.getErrorCode().getHttpStatusCode());
+        }
     }
 
     @PutMapping("/users/{id}")
-    public ResponseEntity<?> editUser(@RequestBody User user, @PathVariable String id) throws CustomException {
-        return new ResponseEntity<>(userService.editUser(user, id), HttpStatus.OK);
+    public ResponseEntity<?> editUser(@RequestBody User user, @PathVariable String id) {
+        try {
+            return new ResponseEntity<>(userService.editUser(user, id), HttpStatus.OK);
+        } catch (CustomException e) {
+            return new ResponseEntity<>(e.getMessage(), e.getErrorCode().getHttpStatusCode());
+        }
     }
 
     @DeleteMapping("/users/{id}")
-    public ResponseEntity<?> deleteUser(@PathVariable String id) throws CustomException {
-        return new ResponseEntity<>(userService.deleteUser(id), HttpStatus.OK);
+    public ResponseEntity<?> deleteUser(@PathVariable String id) {
+        try {
+            return new ResponseEntity<>(userService.deleteUser(id), HttpStatus.OK);
+        } catch (CustomException e) {
+            return new ResponseEntity<>(e.getMessage(), e.getErrorCode().getHttpStatusCode());
+        }
     }
 }

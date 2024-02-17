@@ -57,6 +57,7 @@ public class UserService {
     }
 
     public long userIdFromString(String userIdString) throws CustomException{
+        if(Objects.isNull(userIdString)) throw new CustomException(ErrorCode.INVALID_USER_ID);
         try {
             return Long.parseLong(userIdString);
         } catch (NumberFormatException e) {

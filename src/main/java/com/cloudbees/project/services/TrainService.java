@@ -69,6 +69,7 @@ public class TrainService {
     }
 
     public List<SeatResponseDto> getBookedSeatsFromSection(String sectionString) throws CustomException {
+        if(Objects.isNull(sectionString)) throw new CustomException(ErrorCode.INVALID_SECTION);
         Section section = Section.getSectionFromString(sectionString);
         if(Objects.isNull(section)) throw new CustomException(ErrorCode.SECTION_DOES_NOT_EXIST);
 
@@ -79,7 +80,7 @@ public class TrainService {
     public BookingResponseDto cancelTicket(String  receiptIdString) throws CustomException {
         long receiptId = getReceiptIdFromString(receiptIdString);
 
-        Receipt receipt = receiptRepository.findById(receiptId).orElse(null);
+        Receipt receipt = receiptRepository.findByIdAndStatus(receiptId, TicketStatus.BOOKED);
         if(Objects.isNull(receipt)) throw new CustomException(ErrorCode.RECEIPT_NOT_FOUND);
 
         Seat seat = receipt.getSeat();
@@ -104,20 +105,19 @@ public class TrainService {
             }
         }
 
-        Receipt receipt = receiptRepository.findById(receiptId).orElse(null);
+        Receipt receipt = receiptRepository.findByIdAndStatus(receiptId, TicketStatus.BOOKED);
         if(Objects.isNull(receipt)) throw new CustomException(ErrorCode.RECEIPT_NOT_FOUND);
 
-        Long availableSeatCount = seatRepository.countAvailableSeats();
+        Integer availableSeatCount = seatRepository.countAvailableSeats();
         if(availableSeatCount==0)
             return new BookingResponseDto("No seats available for swapping.", TicketStatus.NOT_BOOKED);
 
         Seat seat = receipt.getSeat();
         Seat newSeat;
         if(Objects.isNull(seatNumber)) newSeat = seatRepository.findAvailableSeat();
-        else {
-            newSeat = seatRepository.findById(seatNumber).orElse(null);
-            if(Objects.isNull(newSeat)) throw new CustomException(ErrorCode.SEAT_NOT_FOUND);
-        }
+        else newSeat = seatRepository.findById(seatNumber).orElse(null);
+        if(Objects.isNull(newSeat)) throw new CustomException(ErrorCode.SEAT_NOT_FOUND);
+
 
         seat.setBooked(false); seat.setUser(null);
         newSeat.setBooked(true); newSeat.setUser(receipt.getUser());
@@ -130,6 +130,7 @@ public class TrainService {
     }
 
     private long getReceiptIdFromString(String receiptIdString) throws CustomException{
+        if(Objects.isNull(receiptIdString)) throw new CustomException(ErrorCode.INVALID_RECEIPT_ID);
         try {
             return Long.parseLong(receiptIdString);
         } catch (NumberFormatException e) {

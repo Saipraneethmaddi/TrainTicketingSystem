@@ -3,10 +3,14 @@ package com.cloudbees.project.dto;
 import com.cloudbees.project.exceptions.CustomException;
 import com.cloudbees.project.exceptions.ErrorCode;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.springframework.util.StringUtils;
 
 @Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class BookingRequestDto {
     private String from;
     private String to;
